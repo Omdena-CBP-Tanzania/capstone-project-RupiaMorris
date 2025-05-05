@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Climate Prediction - Tanzania</title>
+</head>
+<body>
+    <h2>Predict Climate Variable</h2>
+    <form method="POST" action="/predict">
+        <label>Year:</label><input type="number" name="Year" required><br>
+        <label>Month:</label><input type="number" name="Month" required><br>
+        <label>Avg Temp (°C):</label><input type="number" step="any" name="Average_Temperature_C" required><br>
+        <label>Total Rainfall (mm):</label><input type="number" step="any" name="Total_Rainfall_mm" required><br>
+        <label>Max Temp (°C):</label><input type="number" step="any" name="Max_Temperature_C" required><br>
+        <label>Min Temp (°C):</label><input type="number" step="any" name="Min_Temperature_C" required><br>
+        <label>Temp Range (°C):</label><input type="number" step="any" name="Temp_Range_C" required><br>
+        <label>Season (0=Dry, 1=Wet):</label><input type="number" name="Season" required><br><br>
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction %}
+        <h3>Predicted Value: {{ prediction }}</h3>
+    {% elif error %}
+        <h3 style="color:red;">Error: {{ error }}</h3>
+    {% endif %}
+</body>
+</html>
