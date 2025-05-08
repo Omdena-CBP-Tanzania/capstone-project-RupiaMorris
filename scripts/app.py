@@ -5,14 +5,22 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-# === Use Relative Paths for Deployment Compatibility ===
-BASE_DIR = os.path.dirname(__file__)
-model_path = os.path.join(BASE_DIR, '..', 'models', 'random_forest.pkl')
-data_path = os.path.join(BASE_DIR, '..', 'data', 'preprocessed_climate_data.csv')
+# === Set Correct Paths for Streamlit Deployment ===
+model_path = 'models/random_forest.pkl'
+data_path = 'data/preprocessed_climate_data.csv'
 
-# Load model and data
-model = joblib.load(model_path)
-df = pd.read_csv(data_path)
+# === Load model and data safely ===
+try:
+    model = joblib.load(model_path)
+except FileNotFoundError:
+    st.error(f"❌ Model file not found at: `{model_path}`. Please upload the model file.")
+    st.stop()
+
+try:
+    df = pd.read_csv(data_path)
+except FileNotFoundError:
+    st.error(f"❌ Data file not found at: `{data_path}`. Please upload the data file.")
+    st.stop()
 
 # === Streamlit Page Setup ===
 st.set_page_config(page_title="Climate Rainfall Prediction", layout="centered")
