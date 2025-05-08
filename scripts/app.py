@@ -83,8 +83,9 @@ if st.checkbox("📈 Show Rainfall Trend Over Years"):
 
 # 2. Correlation Heatmap
 if st.checkbox("🔥 Show Correlation Heatmap"):
+    numeric_df = df.select_dtypes(include='number')  # Keep only numeric columns
     fig, ax = plt.subplots(figsize=(8, 5))
-    sns.heatmap(df.corr(), annot=True, cmap='coolwarm', fmt=".2f", ax=ax)
+    sns.heatmap(numeric_df.corr(), annot=True, cmap='coolwarm', fmt=".2f", ax=ax)
     st.pyplot(fig)
 
 # 3. Average Rainfall by Season
